@@ -6,6 +6,7 @@ public class FoodSpawner : MonoBehaviour
 {
     public GameObject food;
     public float spawnTime;
+    public GameObject[] foods;
 
 
     private void Awake()
@@ -21,17 +22,21 @@ public class FoodSpawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        foods = GameObject.FindGameObjectsWithTag("Food");
     }
 
     void Spawn()
     {
-        for(int i = 0; i < 7; i++)
+        if (foods.Length < 20)
         {
-            Vector3 randomPoint = new Vector3(Random.Range(-40, 40), 0, Random.Range(-30, 30));
+            for (int i = 0; i < 7; i++)
+            {
+                Vector3 randomPoint = new Vector3(Random.Range(-40, 40), 0, Random.Range(-30, 30));
 
-            Instantiate(food, randomPoint, Quaternion.identity);
+                Instantiate(food, randomPoint, Quaternion.identity);
+            }
         }
+        GameManager.I.check = true;
     }
 
     public static FoodSpawner FI;

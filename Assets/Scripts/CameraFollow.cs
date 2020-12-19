@@ -9,14 +9,17 @@ public class CameraFollow : MonoBehaviour
 
     void Start()
     {
-        target = GameManager.I.player;
         offset = new Vector3(0, 20, -20);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(target != null)
-            transform.position = target.transform.position + offset;
+        target = GameObject.FindGameObjectWithTag("Player");
+
+        if (target != null)
+            transform.position = target.transform.position + offset + new Vector3(0, target.transform.localScale.x * 2, 0);
+        if (target == null)
+            target = GameObject.FindGameObjectWithTag("Player");
     }
 }

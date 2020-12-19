@@ -5,93 +5,1137 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     private Rigidbody rb;
-    private float speed;
-    public GameObject[] targets;
-    private GameObject target;
-    public Search search;
+    public float speed;
     private Quaternion lastRotation;
     public bool isGoing = false;
+    public bool check;
+    public GameObject deathObj;
+    private string[] nameList = 
+    {
+        "Gummi Bear",
+         "Popeye",
+         "Ringo",
+         "Herp Derp",
+         "Braniac",
+         "Dulce",
+         "Bossy",
+         "Peep",
+         "Sugar",
+         "Marge",
+         "Tank",
+         "Ash",
 
+            "Aaren"
+,
+"Aarika"
+,
+"Abagael"
+,
+"Abagail"
+,
+"Abbe"
+,
+"Abbey"
+,
+"Abbi"
+,
+"Abbie"
+,
+"Abby"
+,
+"Abbye"
+,
+"Abigael"
+,
+"Abigail"
+,
+"Abigale"
+,
+"Abra"
+,
+"Ada"
+,
+"Adah"
+,
+"Adaline"
+,
+"Adan"
+,
+"Adara"
+,
+"Adda"
+,
+"Addi"
+,
+"Addia"
+,
+"Addie"
+,
+"Addy"
+,
+"Adel"
+,
+"Adela"
+,
+"Adelaida"
+,
+"Adelaide"
+,
+"Adele"
+,
+"Adelheid"
+,
+"Adelice"
+,
+"Adelina"
+,
+"Adelind"
+,
+"Adeline"
+,
+"Adella"
+,
+"Adelle"
+,
+"Adena"
+,
+"Adey"
+,
+"Adi"
+,
+"Adiana"
+,
+"Adina"
+,
+"Adora"
+,
+"Adore"
+,
+"Adoree"
+,
+"Adorne"
+,
+"Adrea"
+,
+"Adria"
+,
+"Adriaens"
+,
+"Adrian"
+,
+"Adriana"
+,
+"Adriane"
+,
+"Adrianna"
+,
+"Adrianne"
+,
+"Adriena"
+,
+"Adrienne"
+,
+"Aeriel"
+,
+"Aeriela"
+,
+"Aeriell"
+,
+"Afton"
+,
+"Ag"
+,
+"Agace"
+,
+"Agata"
+,
+"Agatha"
+,
+"Agathe"
+,
+"Aggi"
+,
+"Aggie"
+,
+"Aggy"
+,
+"Agna"
+,
+"Agnella"
+,
+"Agnes"
+,
+"Agnese"
+,
+"Agnesse"
+,
+"Agneta"
+,
+"Agnola"
+,
+"Agretha"
+,
+"Aida"
+,
+"Aidan"
+,
+"Aigneis"
+,
+"Aila"
+,
+"Aile"
+,
+"Ailee"
+,
+"Aileen"
+,
+"Ailene"
+,
+"Ailey"
+,
+"Aili"
+,
+"Ailina"
+,
+"Ailis"
+,
+"Ailsun"
+,
+"Ailyn"
+,
+"Aime"
+,
+"Aimee"
+,
+"Aimil"
+,
+"Aindrea"
+,
+"Ainslee"
+,
+"Ainsley"
+,
+"Ainslie"
+,
+"Ajay"
+,
+"Alaine"
+,
+"Alameda"
+,
+"Alana"
+,
+"Alanah"
+,
+"Alane"
+,
+"Alanna"
+,
+"Alayne"
+,
+"Alberta"
+,
+"Albertina"
+,
+"Albertine"
+,
+"Albina"
+,
+"Alecia"
+,
+"Aleda"
+,
+"Aleece"
+,
+"Aleen"
+,
+"Alejandra"
+,
+"Alejandrina"
+,
+"Alena"
+,
+"Alene"
+,
+"Alessandra"
+,
+"Aleta"
+,
+"Alethea"
+,
+"Alex"
+,
+"Alexa"
+,
+"Alexandra"
+,
+"Alexandrina"
+,
+"Alexi"
+,
+"Alexia"
+,
+"Alexina"
+,
+"Alexine"
+,
+"Alexis"
+,
+"Alfi"
+,
+"Alfie"
+,
+"Alfreda"
+,
+"Alfy"
+,
+"Ali"
+,
+"Alia"
+,
+"Alica"
+,
+"Alice"
+,
+"Alicea"
+,
+"Alicia"
+,
+"Alida"
+,
+"Alidia"
+,
+"Alie"
+,
+"Alika"
+,
+"Alikee"
+,
+"Alina"
+,
+"Aline"
+,
+"Alis"
+,
+"Alisa"
+,
+"Alisha"
+,
+"Alison"
+,
+"Alissa"
+,
+"Alisun"
+,
+"Alix"
+,
+"Aliza"
+,
+"Alla"
+,
+"Alleen"
+,
+"Allegra"
+,
+"Allene"
+,
+"Alli"
+,
+"Allianora"
+,
+"Allie"
+,
+"Allina"
+,
+"Allis"
+,
+"Allison"
+,
+"Allissa"
+,
+"Allix"
+,
+"Allsun"
+,
+"Allx"
+,
+"Ally"
+,
+"Allyce"
+,
+"Allyn"
+,
+"Allys"
+,
+"Allyson"
+,
+"Alma"
+,
+"Almeda"
+,
+"Almeria"
+,
+"Almeta"
+,
+"Almira"
+,
+"Almire"
+,
+"Aloise"
+,
+"Aloisia"
+,
+"Aloysia"
+,
+"Alta"
+,
+"Althea"
+,
+"Alvera"
+,
+"Alverta"
+,
+"Alvina"
+,
+"Alvinia"
+,
+"Alvira"
+,
+"Alyce"
+,
+"Alyda"
+,
+"Alys"
+,
+"Alysa"
+,
+"Alyse"
+,
+"Alysia"
+,
+"Alyson"
+,
+"Alyss"
+,
+"Alyssa"
+,
+"Amabel"
+,
+"Amabelle"
+,
+"Amalea"
+,
+"Amalee"
+,
+"Amaleta"
+,
+"Amalia"
+,
+"Amalie"
+,
+"Amalita"
+,
+"Amalle"
+,
+"Amanda"
+,
+"Amandi"
+,
+"Amandie"
+,
+"Amandy"
+,
+"Amara"
+,
+"Amargo"
+,
+"Amata"
+,
+"Amber"
+,
+"Amberly"
+,
+"Ambur"
+,
+"Ame"
+,
+"Amelia"
+,
+"Amelie"
+,
+"Amelina"
+,
+"Ameline"
+,
+"Amelita"
+,
+"Ami"
+,
+"Amie"
+,
+"Amii"
+,
+"Amil"
+,
+"Amitie"
+,
+"Amity"
+,
+"Ammamaria"
+,
+"Amy"
+,
+"Amye"
+,
+"Ana"
+,
+"Anabal"
+,
+"Anabel"
+,
+"Anabella"
+,
+"Anabelle"
+,
+"Analiese"
+,
+"Analise"
+,
+"Anallese"
+,
+"Anallise"
+,
+"Anastasia"
+,
+"Anastasie"
+,
+"Anastassia"
+,
+"Anatola"
+,
+"Andee"
+,
+"Andeee"
+,
+"Anderea"
+,
+"Andi"
+,
+"Andie"
+,
+"Andra"
+,
+"Andrea"
+,
+"Andreana"
+,
+"Andree"
+,
+"Andrei"
+,
+"Andria"
+,
+"Andriana"
+,
+"Andriette"
+,
+"Andromache"
+,
+"Andy"
+,
+"Anestassia"
+,
+"Anet"
+,
+"Anett"
+,
+"Anetta"
+,
+"Anette"
+,
+"Ange"
+,
+"Angel"
+,
+"Angela"
+,
+"Angele"
+,
+"Angelia"
+,
+"Angelica"
+,
+"Angelika"
+,
+"Angelina"
+,
+"Angeline"
+,
+"Angelique"
+,
+"Angelita"
+,
+"Angelle"
+,
+"Angie"
+,
+"Angil"
+,
+"Angy"
+,
+"Ania"
+,
+"Anica"
+,
+"Anissa"
+,
+"Anita"
+,
+"Anitra"
+,
+"Anjanette"
+,
+"Anjela"
+,
+"Ann"
+,
+"Ann-Marie"
+,
+"Anna"
+,
+"Anna-Diana"
+,
+"Anna-Diane"
+,
+"Anna-Maria"
+,
+"Annabal"
+,
+"Annabel"
+,
+"Annabela"
+,
+"Annabell"
+,
+"Annabella"
+,
+"Annabelle"
+,
+"Annadiana"
+,
+"Annadiane"
+,
+"Annalee"
+,
+"Annaliese"
+,
+"Annalise"
+,
+"Annamaria"
+,
+"Annamarie"
+,
+"Anne"
+,
+"Anne-Corinne"
+,
+"Anne-Marie"
+,
+"Annecorinne"
+,
+"Anneliese"
+,
+"Annelise"
+,
+"Annemarie"
+,
+"Annetta"
+,
+"Annette"
+,
+"Anni"
+,
+"Annice"
+,
+"Annie"
+,
+"Annis"
+,
+"Annissa"
+,
+"Annmaria"
+,
+"Annmarie"
+,
+"Annnora"
+,
+"Annora"
+,
+"Anny"
+,
+"Anselma"
+,
+"Ansley"
+,
+"Anstice"
+,
+"Anthe"
+,
+"Anthea"
+,
+"Anthia"
+,
+"Anthiathia"
+,
+"Antoinette"
+,
+"Antonella"
+,
+"Antonetta"
+,
+"Antonia"
+,
+"Antonie"
+,
+"Antonietta"
+,
+"Antonina"
+,
+"Anya"
+,
+"Appolonia"
+,
+"April"
+,
+"Aprilette"
+,
+"Ara"
+,
+"Arabel"
+,
+"Arabela"
+,
+"Arabele"
+,
+"Arabella"
+,
+"Arabelle"
+,
+"Arda"
+,
+"Ardath"
+,
+"Ardeen"
+,
+"Ardelia"
+,
+"Ardelis"
+,
+"Ardella"
+,
+"Ardelle"
+,
+"Arden"
+,
+"Ardene"
+,
+"Ardenia"
+,
+"Ardine"
+,
+"Ardis"
+,
+"Ardisj"
+,
+"Ardith"
+,
+"Ardra"
+,
+"Ardyce"
+,
+"Ardys"
+,
+"Ardyth"
+,
+"Aretha"
+,
+"Ariadne"
+,
+"Ariana"
+,
+"Aridatha"
+,
+"Ariel"
+,
+"Ariela"
+,
+"Ariella"
+,
+"Arielle"
+,
+"Arlana"
+,
+"Arlee"
+,
+"Arleen"
+,
+"Arlen"
+,
+"Arlena"
+,
+"Arlene"
+,
+"Arleta"
+,
+"Arlette"
+,
+"Arleyne"
+,
+"Arlie"
+,
+"Arliene"
+,
+"Arlina"
+,
+"Arlinda"
+,
+"Arline"
+,
+"Arluene"
+,
+"Arly"
+,
+"Arlyn"
+,
+"Arlyne"
+,
+"Aryn"
+,
+"Ashely"
+,
+"Ashia"
+,
+"Ashien"
+,
+"Ashil"
+,
+"Ashla"
+,
+"Ashlan"
+,
+"Ashlee"
+,
+"Ashleigh"
+,
+"Ashlen"
+,
+"Ashley"
+,
+"Ashli"
+,
+"Ashlie"
+,
+"Ashly"
+,
+"Asia"
+,
+"Astra"
+,
+"Astrid"
+,
+"Astrix"
+,
+"Atalanta"
+,
+"Athena"
+,
+"Athene"
+,
+"Atlanta"
+,
+"Atlante"
+,
+"Auberta"
+,
+"Aubine"
+,
+"Aubree"
+,
+"Aubrette"
+,
+"Aubrey"
+,
+"Aubrie"
+,
+"Aubry"
+,
+"Audi"
+,
+"Audie"
+,
+"Audra"
+,
+"Audre"
+,
+"Audrey"
+,
+"Audrie"
+,
+"Audry"
+,
+"Audrye"
+,
+"Audy"
+,
+"Augusta"
+,
+"Auguste"
+,
+"Augustina"
+,
+"Augustine"
+,
+"Aundrea"
+,
+"Aura"
+,
+"Aurea"
+,
+"Aurel"
+,
+"Aurelea"
+,
+"Aurelia"
+,
+"Aurelie"
+,
+"Auria"
+,
+"Aurie"
+,
+"Aurilia"
+,
+"Aurlie"
+,
+"Auroora"
+,
+"Aurora"
+,
+"Aurore"
+,
+"Austin"
+,
+"Austina"
+,
+"Austine"
+,
+"Ava"
+,
+"Aveline"
+,
+"Averil"
+,
+"Averyl"
+,
+"Avie"
+,
+"Avis"
+,
+"Aviva"
+,
+"Avivah"
+,
+"Avril"
+,
+"Avrit"
+,
+"Ayn"
+,
+"Bab"
+,
+"Babara"
+,
+"Babb"
+,
+"Babbette"
+,
+"Babbie"
+,
+"Babette"
+,
+"Babita"
+,
+"Babs"
+,
+"Bambi"
+,
+"Bambie"
+,
+"Bamby"
+,
+"Barb"
+,
+"Barbabra"
+,
+"Barbara"
+,
+"Barbara-Anne"
+,
+"Barbaraanne"
+,
+"Barbe"
+,
+"Barbee"
+,
+"Barbette"
+,
+"Barbey"
+,
+"Barbi"
+,
+"Barbie"
+,
+"Barbra"
+,
+"Barby"
+,
+"Bari"
+,
+"Barrie"
+,
+"Barry"
+,
+"Basia"
+,
+"Bathsheba"
+,
+"Batsheva"
+,
+"Bea"
+,
+"Beatrice"
+,
+"Beatrisa"
+,
+"Beatrix"
+,
+"Beatriz"
+,
+"Bebe"
+,
+"Becca"
+,
+"Becka"
+,
+"Becki"
+,
+"Beckie"
+,
+"Becky"
+    };
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        check = true;
+        speed = (1 / gameObject.transform.localScale.x) * 500;
+
+        GameManager.I.enemiesInGame.Add(gameObject);
+
+        gameObject.name = nameList[Random.Range(0,500)];
     }
 
     // Update is called once per frame
     void Update()
     {
+        transform.position = new Vector3(transform.position.x, transform.localScale.x / 4, transform.position.z);
 
-        speed = (1 / gameObject.transform.localScale.x + 0.5f) * 500;
+        if (check)
+        {
+            GameManager.I.enemies.Add(gameObject.transform);  //closest one is itself so it does not move at all
+            check = false;
+        }
+
 
         if (gameObject.transform.localScale.x < 0.5f)
         {
             Destroy(gameObject);
         }
-
-        targets = GameObject.FindGameObjectsWithTag("Food");
-
-        if (isGoing == false)
+        
+    }
+    private void FixedUpdate()
+    {
+        if (!isGoing)
         {
-            AI();
+            if (GameManager.I.matchFinished != true)
+            {
+                Movement();
+            }
+            else
+            {
+                rb.velocity = Vector3.zero;
+            }
         }
-
-        Movement();
-
     }
 
-    void AI()
+    public Transform GetClosestEnemy(List<Transform> enemies, Transform fromThis)
     {
 
-        if (targets.Length == 0)
-            return;
-        int rand = Random.Range(0, targets.Length);
-        target = targets[rand];
-    }
+        Transform bestTarget = null;
 
- 
+        float closestDistanceSqr = Mathf.Infinity;
+        Vector3 currentPosition = fromThis.position;
+
+        foreach (Transform potentialTarget in enemies)
+        {
+            if(potentialTarget != null)
+            {
+                if (potentialTarget.position != gameObject.transform.position)
+                {
+                    Vector3 directionToTarget = potentialTarget.position - currentPosition;
+                    float dSqrToTarget = directionToTarget.sqrMagnitude;
+
+                    if (dSqrToTarget < closestDistanceSqr)
+                    {
+                        closestDistanceSqr = dSqrToTarget;
+                        bestTarget = potentialTarget;
+                    }
+                }
+            }
+            
+        }
+        return bestTarget;
+    }
 
     void Movement()
     {
-        if (targets.Length != 0 && target != null)
-        {
-            rb.velocity = (target.transform.position - gameObject.transform.position).normalized * speed * Time.deltaTime;   //error
-            isGoing = true;
-        }
-        else if(targets.Length == 0)
-        {
-            isGoing = false;
+        Transform closestThing = GetClosestEnemy(GameManager.I.enemies, transform);
 
-            if (GameManager.I.player != null)
-            {
-                if (transform.localScale.x > GameManager.I.player.transform.localScale.x)
-                    rb.velocity = (GameManager.I.player.transform.position - transform.position).normalized;
-            }
-        }
-
-        if (search.GetClosestEnemy(search.enemies, search.gameObject.transform) != null)
+        if (closestThing != null)
         {
-            if (search.GetClosestEnemy(search.enemies, search.gameObject.transform).transform.localScale.x < transform.localScale.x)
+            if (closestThing.transform.localScale.x < transform.localScale.x)
             {
-                rb.velocity = (search.GetClosestEnemy(search.enemies, search.gameObject.transform).position - gameObject.transform.position).normalized * speed * Time.deltaTime;
-            if(isGoing)
-                    isGoing = false;
+                rb.velocity = (closestThing.position - transform.position).normalized * speed * Time.deltaTime;
             }
-            else if (search.GetClosestEnemy(search.enemies, search.gameObject.transform).transform.localScale.x > transform.localScale.x)
+            else if (closestThing.transform.localScale.x > transform.localScale.x)
             {
-                rb.velocity = (gameObject.transform.position - search.GetClosestEnemy(search.enemies, search.gameObject.transform).position).normalized * speed * Time.deltaTime;
-            if(isGoing)
-                    isGoing = false;
+                
+                rb.velocity = (transform.position - closestThing.position).normalized * speed * Time.deltaTime;
             }
-        }
+            else if(closestThing.transform.localScale.x == transform.localScale.x)
+            {
+                //rb.velocity = (transform.position - closestThing.position).normalized * speed * Time.deltaTime;
+            }
 
-        if (rb.velocity != Vector3.zero)
-        {
             transform.rotation = Quaternion.LookRotation(rb.velocity.normalized);
-            lastRotation = transform.rotation;
         }
-        else if (rb.velocity == Vector3.zero)
+        else
+        {
+            return;
+        }
+
+        if (rb.velocity == Vector3.zero)
         {
             transform.rotation = lastRotation;
         }
@@ -99,26 +1143,52 @@ public class Enemy : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "Enemy" || collision.gameObject.tag == "Player")
+        if (collision.gameObject.tag == "Enemy")
         {
             if (transform.localScale.x > collision.gameObject.transform.localScale.x)
             {
                 transform.localScale += collision.gameObject.transform.localScale * 0.2f;
-                search.enemies.Remove(collision.gameObject.transform);
-                Destroy(collision.gameObject);
+            }
+            if (transform.localScale.x < collision.gameObject.transform.localScale.x)
+            {
+                GameManager.I.enemies.Remove(gameObject.transform);
+                Instantiate(deathObj, transform.position, Quaternion.identity);
+                deathObj.GetComponent<ParticleSystem>().GetComponent<Renderer>().material = gameObject.GetComponent<MeshRenderer>().material;
+                GameManager.I.enemiesInGame.Remove(gameObject);
+                Destroy(gameObject);
+
             }
         }
 
-        if (collision.gameObject.tag == "Food")
-        {
-            transform.localScale += new Vector3(1 / (transform.localScale.x * 10), 1 / (transform.localScale.y * 10), 1 / (transform.localScale.z * 10));
-            Destroy(collision.gameObject);
-            isGoing = false;
-        }
-
+       
         if (collision.gameObject.tag == "Wall")
         {
 
+        }
+
+        if (collision.gameObject.tag == "Foot")
+        {
+            Instantiate(deathObj, transform.position, Quaternion.identity);
+            deathObj.GetComponent<ParticleSystem>().GetComponent<Renderer>().material = gameObject.GetComponent<MeshRenderer>().material;
+            GameManager.I.enemiesInGame.Remove(gameObject);
+            Destroy(gameObject);
+        }
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "Food")
+        {
+            transform.localScale += new Vector3(1 / (transform.localScale.x * 10), 1 / (transform.localScale.y * 10), 1 / (transform.localScale.z * 10));
+            speed -= 1;
+        }
+
+        if (other.gameObject.tag == "Kapan")
+        {
+            GameManager.I.enemies.Remove(gameObject.transform);
+            Instantiate(deathObj, transform.position, Quaternion.identity);
+            deathObj.GetComponent<ParticleSystem>().GetComponent<Renderer>().material = gameObject.GetComponent<MeshRenderer>().material;
+            GameManager.I.enemiesInGame.Remove(gameObject);
+            Destroy(gameObject);
         }
     }
 }

@@ -9,6 +9,9 @@ TagManager:
   - Enemy
   - Wall
   - Search
+  - Foot
+  - Kapan
+  - KapanBolgesi
   layers:
   - Default
   - TransparentFX
